@@ -10,6 +10,10 @@ namespace ChecksumForEanCodeAft
     {
         static void Main(string[] args)
         {
+            Console.Write("Please input numeric code: ");
+            string inputData = Console.ReadLine();
+
+            Console.ReadLine();
         }
     }
 }
