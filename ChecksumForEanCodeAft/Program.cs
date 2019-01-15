@@ -19,8 +19,7 @@ namespace ChecksumForEanCodeAft
             if (InputCodeValidator.IsCodeValid(inputData, codeType))
             {
                 //Wylicz sume kontrolna
-                Console.WriteLine($"Checksum: " +
-                    $"{(InputCodeValidator.CalculateCheckSum(inputData, codeType) == 10 ? "Error" : InputCodeValidator.CalculateCheckSum(inputData, codeType).ToString())}");
+                Console.WriteLine($"Checksum: {InputCodeValidator.CalculateCheckSum(inputData, codeType)}");
             }
             else
             {

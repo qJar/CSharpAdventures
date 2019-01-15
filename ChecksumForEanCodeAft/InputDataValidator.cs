@@ -78,14 +78,14 @@ namespace ChecksumForEanCodeAft
                     }
                 }
             }
-            //wyliczenie sumy kontrolnej dla odp. kodu EAN. Warunek default ze zwroceniem 10 z koniecznosci
+            //wyliczenie sumy kontrolnej dla odp. kodu EAN.
             switch (inputCodeLength)
             {
                 case EanCodeType.Ean8:
                     return (sumOfOddNumber * 3 + sumOfEvenNumber) % 10 == 10 ? 0 : 10 - ((sumOfOddNumber * 3 + sumOfEvenNumber) % 10);
                 case EanCodeType.Ean13:
                     return (sumOfOddNumber + sumOfEvenNumber * 3) % 10 == 10 ? 0 : 10 - ((sumOfOddNumber + sumOfEvenNumber * 3) % 10);
-                default: return 10;
+                default: throw new Exception("There is no such of code type!");
             }
         }
 
