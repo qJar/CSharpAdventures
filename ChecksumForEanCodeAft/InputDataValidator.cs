@@ -71,7 +71,7 @@ namespace ChecksumForEanCodeAft
         /// </summary>
         /// <param name="inputCode"></param>
         /// <returns></returns>
-        public static int CalculateCheckSum (string inputCode)
+        public static int CalculateCheckSum (string inputCode, EanCodeTypeLength inputCodeLength)
         {
             //suma cyfr z pozycji nieparzystystych
             int sumOfOddNumber = 0;
@@ -92,7 +92,15 @@ namespace ChecksumForEanCodeAft
                     }
                 }
             }
-            return (sumOfOddNumber + sumOfEvenNumber * 3) % 10 == 10 ? 0 : 10 - ((sumOfOddNumber + sumOfEvenNumber * 3) % 10) ;
+            switch (inputCodeLength)
+            {
+                case EanCodeTypeLength.Ean8:
+                    return (sumOfOddNumber * 3 + sumOfEvenNumber) % 10 == 10 ? 0 : 10 - ((sumOfOddNumber * 3 + sumOfEvenNumber) % 10);
+                case EanCodeTypeLength.Ean13:
+                    return (sumOfOddNumber + sumOfEvenNumber * 3) % 10 == 10 ? 0 : 10 - ((sumOfOddNumber + sumOfEvenNumber * 3) % 10);
+                default: return 10;
+            }
+            //return (sumOfOddNumber + sumOfEvenNumber * 3) % 10 == 10 ? 0 : 10 - ((sumOfOddNumber + sumOfEvenNumber * 3) % 10);
         }
 
         #endregion
