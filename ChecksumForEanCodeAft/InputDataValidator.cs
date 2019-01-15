@@ -49,7 +49,7 @@ namespace ChecksumForEanCodeAft
         /// <returns></returns>
         public static bool IsCodeValid(string inputCode, EanCodeType inputCodeLength)
         {
-            return IsLengthValid(inputCode, (int)inputCodeLength) && IsCharValid(inputCode);
+            return IsCharValid(inputCode) && IsLengthValid(inputCode, (int)inputCodeLength);
         }
 
         /// <summary>
