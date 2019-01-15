@@ -28,19 +28,16 @@ namespace ChecksumForEanCodeAft
         /// <param name="inputCode"></param>
         /// <param name="inputCodeLength"></param>
         /// <returns></returns>
-        private static bool IsLengthValid(string inputCode, int inputCodeLength)
-        {
-            return inputCode.Length == inputCodeLength;
-        }
+        private static bool IsLengthValid(string inputCode, int inputCodeLength) => inputCode.Length == inputCodeLength;
 
         /// <summary>
         /// sprawdzanie czy kazdy znak jest cyfra
         /// </summary>
         /// <param name="inputCode"></param>
         /// <returns></returns>
-        private static bool IsCharValid(string inputCode) => int.TryParse(inputCode, out int result);
+        private static bool IsCharValid(string inputCode) => double.TryParse(inputCode, out double result);
         
-#endregion
+        #endregion
 
         #region Public Methods
 
@@ -81,6 +78,7 @@ namespace ChecksumForEanCodeAft
                     }
                 }
             }
+            //wyliczenie sumy kontrolnej dla odp. kodu EAN. Warunek default ze zwroceniem 10 z koniecznosci
             switch (inputCodeLength)
             {
                 case EanCodeType.Ean8:
