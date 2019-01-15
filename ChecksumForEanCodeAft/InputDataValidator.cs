@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace ChecksumForEanCodeAft
 {
     /// <summary>
-    /// Typ wyliczeniowy kodow EAN ze wzgledu na ich dlugosc znakowa
+    /// Typ wyliczeniowy kodow EAN z przypisana dlugoscia znakow
     /// </summary>
-    public enum EanCodeTypeLength
+    public enum EanCodeType
     {
         Ean8 = 8,
         Ean13 = 13
@@ -38,20 +38,9 @@ namespace ChecksumForEanCodeAft
         /// </summary>
         /// <param name="inputCode"></param>
         /// <returns></returns>
-        private static bool IsCharValid(string inputCode)
-        {
-            foreach (char c in inputCode)
-            {
-                //weryfikacja każdego znaku jako cyfry
-                if (!int.TryParse(c.ToString(), out int result))
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        #endregion
+        private static bool IsCharValid(string inputCode) => int.TryParse(inputCode, out int result);
+        
+#endregion
 
         #region Public Methods
 
@@ -61,7 +50,7 @@ namespace ChecksumForEanCodeAft
         /// <param name="inputCode"></param>
         /// <param name="inputCodeLength"></param>
         /// <returns></returns>
-        public static bool IsCodeValid(string inputCode, EanCodeTypeLength inputCodeLength)
+        public static bool IsCodeValid(string inputCode, EanCodeType inputCodeLength)
         {
             return IsLengthValid(inputCode, (int)inputCodeLength) && IsCharValid(inputCode);
         }
@@ -71,7 +60,7 @@ namespace ChecksumForEanCodeAft
         /// </summary>
         /// <param name="inputCode"></param>
         /// <returns></returns>
-        public static int CalculateCheckSum (string inputCode, EanCodeTypeLength inputCodeLength)
+        public static int CalculateCheckSum (string inputCode, EanCodeType inputCodeLength)
         {
             //suma cyfr z pozycji nieparzystystych
             int sumOfOddNumber = 0;
@@ -94,13 +83,12 @@ namespace ChecksumForEanCodeAft
             }
             switch (inputCodeLength)
             {
-                case EanCodeTypeLength.Ean8:
+                case EanCodeType.Ean8:
                     return (sumOfOddNumber * 3 + sumOfEvenNumber) % 10 == 10 ? 0 : 10 - ((sumOfOddNumber * 3 + sumOfEvenNumber) % 10);
-                case EanCodeTypeLength.Ean13:
+                case EanCodeType.Ean13:
                     return (sumOfOddNumber + sumOfEvenNumber * 3) % 10 == 10 ? 0 : 10 - ((sumOfOddNumber + sumOfEvenNumber * 3) % 10);
                 default: return 10;
             }
-            //return (sumOfOddNumber + sumOfEvenNumber * 3) % 10 == 10 ? 0 : 10 - ((sumOfOddNumber + sumOfEvenNumber * 3) % 10);
         }
 
         #endregion

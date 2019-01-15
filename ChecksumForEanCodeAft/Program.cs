@@ -13,7 +13,7 @@ namespace ChecksumForEanCodeAft
         {
             Console.Write("Please input numeric code: ");
             string inputData = Console.ReadLine();
-            var codeType = EanCodeTypeLength.Ean8;
+            var codeType = EanCodeType.Ean8;
             
             //Sprawdz poprawnosc kodu tj. jego dlugosc i dopuszczalne znaki 
             if (InputCodeValidator.IsCodeValid(inputData, codeType))
