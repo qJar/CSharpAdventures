@@ -16,7 +16,7 @@ namespace ChecksumForEanCodeAft
             var codeType = EanCodeType.Ean8;
             
             //Sprawdz poprawnosc kodu tj. jego dlugosc i dopuszczalne znaki 
-            if (InputCodeValidator.IsCodeValid(inputData, codeType))
+            if (InputCodeValidator.CheckCodeValid(inputData, codeType))
             {
                 //Wylicz sume kontrolna
                 Console.WriteLine($"Checksum: {InputCodeValidator.CalculateCheckSum(inputData, codeType)}");

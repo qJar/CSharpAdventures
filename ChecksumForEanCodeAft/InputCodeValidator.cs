@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace ChecksumForEanCodeAft
@@ -50,6 +51,12 @@ namespace ChecksumForEanCodeAft
         public static bool IsCodeValid(string inputCode, EanCodeType inputCodeLength)
         {
             return IsCharValid(inputCode) && IsLengthValid(inputCode, (int)inputCodeLength);
+        }
+
+        public static bool CheckCodeValid(string inputCode, EanCodeType codeType)
+        {
+            string pattern = @"\d{" + ((int)codeType).ToString() + "}";
+            return Regex.IsMatch(inputCode, pattern);
         }
 
         /// <summary>
