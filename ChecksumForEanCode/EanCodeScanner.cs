@@ -98,7 +98,7 @@ namespace ChecksumForEanCode
             int sumValuesOnEvenPosition = SumOfConvertedStringToIntValue(_eanNumericCodeWithEvenIndex) * 3;
             
             //Wylicznie sumy kontrolnej z cyfr na pozycjach 1-12
-            _calculatedCheckSumValue = ((sumValuesOnOddPosition + sumValuesOnEvenPosition) % 10) == 10 ? 0 :
+            _calculatedCheckSumValue = ((10 - (sumValuesOnOddPosition + sumValuesOnEvenPosition) % 10)) == 10 ? 0 :
                 10 - ((sumValuesOnOddPosition + sumValuesOnEvenPosition) % 10);
         }
 
