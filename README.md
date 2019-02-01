@@ -1,5 +1,11 @@
 # CSharpAdventures opis 
 
+**[01-02-2019]** 
+
+W ramach rozwoju mini projektu **ChecksumForEanCodeAft** odkrylem blad w koncowym wyliczeniu sumy kontrolnej. W sytuacjach kiedy
+reszta z dzielenia (x % 10) byla rowna 0, to suma kontrolna wyliczana byla jako 10. BLAD! Naprawiono.
+
+
 ## Project ChecksumForEanCodeAft
 Aft (after few thoughts) czyli po paru przemyśleniach. Jest to zmodyfikowana wersja projektu ChecksumForEanCode. Inne podejście do zagadnienia, prostszy kod. Wyeliminowano kilka powtórzen w kodzie. 
 
