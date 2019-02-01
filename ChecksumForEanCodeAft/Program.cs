@@ -24,7 +24,8 @@ namespace ChecksumForEanCodeAft
                         Console.Clear();
                         break;
                     case "2":
-                        //
+                        TextFileProcessor.LoadCodes("codes.csv").ForEach(x => { codes.Add(x); });
+                        Console.Clear();
                         break;
                     case "3":
                         if (codes.Count > 0)
@@ -32,10 +33,10 @@ namespace ChecksumForEanCodeAft
                             Console.WriteLine("\nResults:");
                             codes.ForEach(x =>
                             {
-                                if (InputCodeValidator.IsCodeValid(x, codeType))
+                                if (CodeProcessor.IsCodeValid(x, codeType))
                                 {
                                    Console.WriteLine($"Code: {x} is valid | Checksum: " +
-                                        $" {InputCodeValidator.CalculateCheckSum(x, codeType)}");
+                                        $" {CodeProcessor.CalculateCheckSum(x, codeType)}");
                                 }
                                 else
                                 {
@@ -44,6 +45,10 @@ namespace ChecksumForEanCodeAft
                             });
                             Console.WriteLine("\n---Press any key---");
                             Console.ReadKey();
+                            Console.Clear();
+                        }
+                        else
+                        {
                             Console.Clear();
                         }
                         break;

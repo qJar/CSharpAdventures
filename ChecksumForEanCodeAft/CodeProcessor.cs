@@ -18,7 +18,7 @@ namespace ChecksumForEanCodeAft
     /// <summary>
     /// Glowna klasa walidujaca podany kod. Sprawdzana jest dlugosc, poprawnosc znakowa. Wyliczana jest suma kontrolna
     /// </summary>
-    public class InputCodeValidator
+    public class CodeProcessor
     {
         #region Private Methods
 
