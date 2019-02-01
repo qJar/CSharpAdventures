@@ -3,7 +3,7 @@
 **[01-02-2019]** 
 
 W ramach rozwoju mini projektu **ChecksumForEanCodeAft** odkrylem blad w koncowym wyliczeniu sumy kontrolnej. W sytuacjach kiedy
-reszta z dzielenia (x % 10) rowna byla 0, suma kontrolna wyliczana byla jako 10. BLAD! Naprawiono.
+reszta z dzielenia (x % 10) byla rowna 0, suma kontrolna wyliczana byla jako 10. BLAD! Naprawiono.
 
 
 ## Project ChecksumForEanCodeAft
