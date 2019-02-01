@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace ChecksumForEanCodeAft
@@ -12,8 +11,8 @@ namespace ChecksumForEanCodeAft
     /// </summary>
     public enum EanCodeType
     {
-        Ean8 = 8,
-        Ean13 = 13
+        EAN8 = 8,
+        EAN13 = 13
     }
 
     /// <summary>
@@ -37,26 +36,20 @@ namespace ChecksumForEanCodeAft
         /// <param name="inputCode"></param>
         /// <returns></returns>
         private static bool IsCharValid(string inputCode) => double.TryParse(inputCode, out double result);
-        
+
         #endregion
 
         #region Public Methods
 
         /// <summary>
-        /// sprawdzanie ogolnej poprawnosci wprowadzonego kodu (dlugosc, dopuszczalne znaki)
+        /// Weryfikuj kod pod wzgledem jego dlugosci i dozwolonych w nim znakow
         /// </summary>
         /// <param name="inputCode"></param>
-        /// <param name="inputCodeLength"></param>
+        /// <param name="inputCodeType"></param>
         /// <returns></returns>
-        public static bool IsCodeValid(string inputCode, EanCodeType inputCodeLength)
+        public static bool IsCodeValid(string inputCode, EanCodeType inputCodeType)
         {
-            return IsCharValid(inputCode) && IsLengthValid(inputCode, (int)inputCodeLength);
-        }
-
-        public static bool CheckCodeValid(string inputCode, EanCodeType codeType)
-        {
-            string pattern = @"\d{" + ((int)codeType).ToString() + "}";
-            return Regex.IsMatch(inputCode, pattern);
+            return IsCharValid(inputCode) && IsLengthValid(inputCode, (int)inputCodeType);
         }
 
         /// <summary>
@@ -88,10 +81,10 @@ namespace ChecksumForEanCodeAft
             //wyliczenie sumy kontrolnej dla odp. kodu EAN.
             switch (inputCodeLength)
             {
-                case EanCodeType.Ean8:
-                    return (sumOfOddNumber * 3 + sumOfEvenNumber) % 10 == 10 ? 0 : 10 - ((sumOfOddNumber * 3 + sumOfEvenNumber) % 10);
-                case EanCodeType.Ean13:
-                    return (sumOfOddNumber + sumOfEvenNumber * 3) % 10 == 10 ? 0 : 10 - ((sumOfOddNumber + sumOfEvenNumber * 3) % 10);
+                case EanCodeType.EAN8:
+                    return ((10 - (sumOfOddNumber * 3 + sumOfEvenNumber) % 10)) == 10 ? 0 : 10 - ((sumOfOddNumber * 3 + sumOfEvenNumber) % 10);
+                case EanCodeType.EAN13:
+                    return ((10 - (sumOfOddNumber + sumOfEvenNumber * 3) % 10)) == 10 ? 0 : 10 - ((sumOfOddNumber + sumOfEvenNumber * 3) % 10);
                 default: throw new Exception("There is no such of code type!");
             }
         }

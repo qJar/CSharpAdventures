@@ -11,22 +11,48 @@ namespace ChecksumForEanCodeAft
 
         static void Main(string[] args)
         {
-            Console.Write("Please input numeric code: ");
-            string inputData = Console.ReadLine();
-            var codeType = EanCodeType.Ean8;
-            
-            //Sprawdz poprawnosc kodu tj. jego dlugosc i dopuszczalne znaki 
-            if (InputCodeValidator.CheckCodeValid(inputData, codeType))
+            var codeType = EanCodeType.EAN13;
+            string inputChoice = string.Empty;
+            List<string> codes = new List<string>();
+
+            while ((inputChoice = UIPrinter.LoadMenu(codes.Count, codeType)) != "q")
             {
-                //Wylicz sume kontrolna
-                Console.WriteLine($"Checksum: {InputCodeValidator.CalculateCheckSum(inputData, codeType)}");
+                switch (inputChoice)
+                {
+                    case "1":
+                        codes.Add(UIPrinter.LoadSubMenuForInputCode(codes.Count));
+                        Console.Clear();
+                        break;
+                    case "2":
+                        //
+                        break;
+                    case "3":
+                        if (codes.Count > 0)
+                        {
+                            Console.WriteLine("\nResults:");
+                            codes.ForEach(x =>
+                            {
+                                if (InputCodeValidator.IsCodeValid(x, codeType))
+                                {
+                                   Console.WriteLine($"Code: {x} is valid | Checksum: " +
+                                        $" {InputCodeValidator.CalculateCheckSum(x, codeType)}");
+                                }
+                                else
+                                {
+                                    Console.WriteLine($"Code: {x} is invalid.");
+                                }
+                            });
+                            Console.WriteLine("\n---Press any key---");
+                            Console.ReadKey();
+                            Console.Clear();
+                        }
+                        break;
+
+                    default:
+                        Console.WriteLine("Incorrect command, try again!\n");
+                        break;
+                }
             }
-            else
-            {
-                Console.WriteLine("Invalid code!");
-            }
-            
-            Console.ReadLine();
         }
     }
 }
