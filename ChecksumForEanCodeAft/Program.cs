@@ -11,7 +11,7 @@ namespace ChecksumForEanCodeAft
 
         static void Main(string[] args)
         {
-            var codeType = EanCodeType.EAN13;
+            var codeType = EanCodeType.EAN8;
             string inputChoice = string.Empty;
             List<string> codes = new List<string>();
 
@@ -24,10 +24,14 @@ namespace ChecksumForEanCodeAft
                         Console.Clear();
                         break;
                     case "2":
-                        TextFileProcessor.LoadCodes("codes.csv").ForEach(x => { codes.Add(x); });
+                        CodeProcessor.GenerateRandomCodes(10, codeType).ForEach(x => { codes.Add(x); });
                         Console.Clear();
                         break;
                     case "3":
+                        TextFileProcessor.LoadCodes("codes.csv").ForEach(x => { codes.Add(x); });
+                        Console.Clear();
+                        break;
+                    case "4":
                         if (codes.Count > 0)
                         {
                             Console.WriteLine("\nResults:");

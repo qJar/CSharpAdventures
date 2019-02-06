@@ -53,7 +53,7 @@ namespace ChecksumForEanCodeAft
         }
 
         /// <summary>
-        /// wyliczenie sumy kontrolnej
+        /// Wyliczenie sumy kontrolnej
         /// </summary>
         /// <param name="inputCode"></param>
         /// <returns></returns>
@@ -87,6 +87,36 @@ namespace ChecksumForEanCodeAft
                     return ((10 - (sumOfOddNumber + sumOfEvenNumber * 3) % 10)) == 10 ? 0 : 10 - ((sumOfOddNumber + sumOfEvenNumber * 3) % 10);
                 default: throw new Exception("There is no such of code type!");
             }
+        }
+
+        /// <summary>
+        /// Generuje liste losowych kodow
+        /// </summary>
+        /// <param name="howManyCodes"></param>
+        /// <param name="codeType"></param>
+        /// <returns></returns>
+        public static List<string> GenerateRandomCodes(int howManyCodes, EanCodeType codeType)
+        {
+            //zwracana lista
+            List<string> outputCodeList = new List<string>();
+            //inicjalizacja generatora liczb losowych
+            Random rnd = new Random();
+
+            //generuje zadana ilosc kodow
+            for (int j = 0; j < howManyCodes; j++)
+            {
+                StringBuilder sb = new StringBuilder();
+
+                //generuje kod o zadanej liczbie znakow
+                for (int i = 0; i < (int)codeType; i++)
+                {
+                    sb.Append(rnd.Next(0, 9));
+                }
+                //dodaje utworzony kod do listy
+                outputCodeList.Add(sb.ToString());
+            }
+            //zwraca liste kodow
+            return outputCodeList;
         }
 
         #endregion

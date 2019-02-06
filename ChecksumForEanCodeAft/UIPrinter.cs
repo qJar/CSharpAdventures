@@ -17,8 +17,9 @@ namespace ChecksumForEanCodeAft
         {
             Console.WriteLine($"Number of inputed {eanCodeType} codes: {howManyCodes}");
             Console.WriteLine("Press '1' Input code");
-            Console.WriteLine("Press '2' Load code list from file");
-            Console.WriteLine("Press '3' Verify codes");
+            Console.WriteLine("Press '2' Generate random codes");
+            Console.WriteLine("Press '3' Load code list from file");
+            Console.WriteLine("Press '4' Verify codes");
             Console.WriteLine("Press 'q' to Exit");
             Console.Write("Choose option: ");
             return Console.ReadLine();
