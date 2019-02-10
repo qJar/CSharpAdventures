@@ -21,8 +21,12 @@ namespace ChecksumForEanCodeAft
         {
             //utworz instancje pustej listy
             List<string> outputCodeList = new List<string>();
-            //wcztaj zawartosc pliku do listy i zwroc ja do aplikacji
-            outputCodeList = File.ReadAllLines(filepath).ToList();
+            //sprawdz czy plik istnieje
+            if (File.Exists(filepath))
+            {
+                //wcztaj zawartosc pliku do listy i zwroc ja do aplikacji
+                outputCodeList = File.ReadAllLines(filepath).ToList();
+            }
             return outputCodeList;
         }
     }
