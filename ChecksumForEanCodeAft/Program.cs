@@ -53,12 +53,8 @@ namespace ChecksumForEanCodeAft
                             });
                             Console.WriteLine("\n---Press any key---");
                             Console.ReadKey();
-                            Console.Clear();
                         }
-                        else
-                        {
-                            Console.Clear();
-                        }
+                        Console.Clear();
                         break;
 
                     default:
