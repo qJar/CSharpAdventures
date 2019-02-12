@@ -24,11 +24,11 @@ namespace ChecksumForEanCodeAft
                         Console.Clear();
                         break;
                     case "2":
-                        CodeProcessor.GenerateRandomCodes(10, codeType, false).ForEach(x => { codes.Add(x); });
+                        CodeProcessor.GenerateListOfRandomCodes(10, codeType, false).ForEach(x => { codes.Add(x); });
                         Console.Clear();
                         break;
                     case "3":
-                        CodeProcessor.GenerateRandomCodes(10, codeType, true).ForEach(x => { codes.Add(x); });
+                        CodeProcessor.GenerateListOfRandomCodes(10, codeType, true).ForEach(x => { codes.Add(x); });
                         Console.Clear();
                         break;
                     case "4":
@@ -36,6 +36,10 @@ namespace ChecksumForEanCodeAft
                         Console.Clear();
                         break;
                     case "5":
+                        CodeProcessor.FixChecksum(codes, codeType);
+                        Console.Clear();
+                        break;
+                    case "6":
                         if (codes.Count > 0)
                         {
                             Console.WriteLine("\nResults:");
@@ -44,7 +48,7 @@ namespace ChecksumForEanCodeAft
                                 if (CodeProcessor.IsCodeValid(x, codeType))
                                 {
                                    Console.WriteLine($"Code: {x} is valid | Checksum: " +
-                                        $" {CodeProcessor.CalculateCheckSum(x, codeType)}");
+                                        $" {CodeProcessor.CalculateChecksum(x, codeType)}");
                                 }
                                 else
                                 {

@@ -57,7 +57,7 @@ namespace ChecksumForEanCodeAft
         /// </summary>
         /// <param name="inputCode"></param>
         /// <returns></returns>
-        public static int CalculateCheckSum (string inputCode, EanCodeType inputCodeLength)
+        public static int CalculateChecksum(string inputCode, EanCodeType inputCodeLength)
         {
             //suma cyfr z pozycji nieparzystystych
             int sumOfOddNumber = 0;
@@ -94,9 +94,9 @@ namespace ChecksumForEanCodeAft
         /// </summary>
         /// <param name="howManyCodes"></param>
         /// <param name="codeType"></param>
-        /// <param name="withChecksumCalculated"></param>
+        /// <param name="withProperChecksum"></param>
         /// <returns></returns>
-        public static List<string> GenerateRandomCodes(int howManyCodes, EanCodeType codeType, bool withChecksumCalculated)
+        public static List<string> GenerateListOfRandomCodes(int howManyCodes, EanCodeType codeType, bool withProperChecksum)
         {
             //zwracana lista
             List<string> outputCodeList = new List<string>();
@@ -112,17 +112,39 @@ namespace ChecksumForEanCodeAft
                 for (int i = 0; i < (int)codeType; i++)
                 {
                     sb.Append(rnd.Next(0, 9));
+
                 }
                 //wylicza poprawna sume kontrolna
-                if (withChecksumCalculated)
+                if (withProperChecksum)
                 {
-                    sb[((int)codeType)-1] = (char)CalculateCheckSum(sb.ToString(), codeType).ToString()[0];
+                    sb[((int)codeType)-1] = CalculateChecksum(sb.ToString(), codeType).ToString()[0];
                 }
                 //dodaje utworzony kod do listy
                 outputCodeList.Add(sb.ToString());
             }
             //zwraca liste kodow
             return outputCodeList;
+        }
+
+        /// <summary>
+        /// Naprawia kod modyfikujac niepoprawna sume kontrolna
+        /// </summary>
+        /// <param name="codes"></param>
+        /// <param name="codeType"></param>
+        public static void FixChecksum(List<string> codes, EanCodeType codeType)
+        {
+            if (codes.Any())
+            {
+                for (int i = 0; i < codes.Count; i++)
+                {
+                    if (IsCodeValid(codes[i], codeType))
+                    {
+                        StringBuilder sb = new StringBuilder(codes[i]);
+                        sb[((int)codeType) - 1] = CalculateChecksum(codes[i], codeType).ToString()[0];
+                        codes[i] = sb.ToString();
+                    }
+                }
+            }
         }
 
         #endregion

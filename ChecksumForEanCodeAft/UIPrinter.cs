@@ -15,12 +15,13 @@ namespace ChecksumForEanCodeAft
         /// <returns></returns>
         public static string LoadMenu(int howManyCodes, EanCodeType eanCodeType)
         {
-            Console.WriteLine($"Number of inputed {eanCodeType} codes: {howManyCodes}");
+            Console.WriteLine($"Number of {eanCodeType} codes: {howManyCodes}");
             Console.WriteLine("Press '1' Input code");
             Console.WriteLine("Press '2' Generate random codes");
-            Console.WriteLine("Press '3' Generate random codes with valid checksum");
+            Console.WriteLine("Press '3' Generate random codes with proper checksum");
             Console.WriteLine("Press '4' Load code list from file");
-            Console.WriteLine("Press '5' Verify codes");
+            Console.WriteLine("Press '5' Fix checksums");
+            Console.WriteLine("Press '6' Print results");
             Console.WriteLine("Press 'q' to Exit");
             Console.Write("Choose option: ");
             return Console.ReadLine();
