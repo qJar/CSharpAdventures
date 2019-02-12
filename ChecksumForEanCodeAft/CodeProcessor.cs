@@ -94,8 +94,9 @@ namespace ChecksumForEanCodeAft
         /// </summary>
         /// <param name="howManyCodes"></param>
         /// <param name="codeType"></param>
+        /// <param name="withChecksumCalculated"></param>
         /// <returns></returns>
-        public static List<string> GenerateRandomCodes(int howManyCodes, EanCodeType codeType)
+        public static List<string> GenerateRandomCodes(int howManyCodes, EanCodeType codeType, bool withChecksumCalculated)
         {
             //zwracana lista
             List<string> outputCodeList = new List<string>();
@@ -111,6 +112,11 @@ namespace ChecksumForEanCodeAft
                 for (int i = 0; i < (int)codeType; i++)
                 {
                     sb.Append(rnd.Next(0, 9));
+                }
+                //wylicza poprawna sume kontrolna
+                if (withChecksumCalculated)
+                {
+                    sb[((int)codeType)-1] = (char)CalculateCheckSum(sb.ToString(), codeType).ToString()[0];
                 }
                 //dodaje utworzony kod do listy
                 outputCodeList.Add(sb.ToString());

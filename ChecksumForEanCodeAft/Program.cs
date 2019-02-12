@@ -24,14 +24,18 @@ namespace ChecksumForEanCodeAft
                         Console.Clear();
                         break;
                     case "2":
-                        CodeProcessor.GenerateRandomCodes(10, codeType).ForEach(x => { codes.Add(x); });
+                        CodeProcessor.GenerateRandomCodes(10, codeType, false).ForEach(x => { codes.Add(x); });
                         Console.Clear();
                         break;
                     case "3":
-                        TextFileProcessor.LoadCodes("codes.csv").ForEach(x => { codes.Add(x); });
+                        CodeProcessor.GenerateRandomCodes(10, codeType, true).ForEach(x => { codes.Add(x); });
                         Console.Clear();
                         break;
                     case "4":
+                        TextFileProcessor.LoadCodes("codes.csv").ForEach(x => { codes.Add(x); });
+                        Console.Clear();
+                        break;
+                    case "5":
                         if (codes.Count > 0)
                         {
                             Console.WriteLine("\nResults:");
