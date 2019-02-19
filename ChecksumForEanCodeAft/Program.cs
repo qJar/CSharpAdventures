@@ -14,6 +14,7 @@ namespace ChecksumForEanCodeAft
             var codeType = EanCodeType.EAN8;
             string inputChoice = string.Empty;
             List<string> codes = new List<string>();
+            List<string> prefixes = TextFileProcessor.LoadPrefixes("prefixean.csv");
 
             while ((inputChoice = UIPrinter.LoadMenu(codes.Count, codeType)) != "q")
             {
@@ -32,7 +33,7 @@ namespace ChecksumForEanCodeAft
                         Console.Clear();
                         break;
                     case "4":
-                        TextFileProcessor.LoadCodes("codes.csv").ForEach(x => { codes.Add(x); });
+                        TextFileProcessor.LoadCodesFromFile("codes.csv").ForEach(x => { codes.Add(x); });
                         Console.Clear();
                         break;
                     case "5":
@@ -48,7 +49,8 @@ namespace ChecksumForEanCodeAft
                                 if (CodeProcessor.IsCodeValid(x, codeType))
                                 {
                                    Console.WriteLine($"Code: {x} is valid | Checksum: " +
-                                        $" {CodeProcessor.CalculateChecksum(x, codeType)}");
+                                        $" {CodeProcessor.CalculateChecksum(x, codeType)} | " +
+                                        $"{CodeProcessor.DecodePrefix(prefixes,x.Substring(0,3))}");
                                 }
                                 else
                                 {

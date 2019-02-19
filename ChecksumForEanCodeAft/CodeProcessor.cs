@@ -127,7 +127,7 @@ namespace ChecksumForEanCodeAft
         }
 
         /// <summary>
-        /// Naprawia kod modyfikujac niepoprawna sume kontrolna
+        /// Naprawia kod numeryczny modyfikujac niepoprawna sume kontrolna
         /// </summary>
         /// <param name="codes"></param>
         /// <param name="codeType"></param>
@@ -145,6 +145,29 @@ namespace ChecksumForEanCodeAft
                     }
                 }
             }
+        }
+
+        public static string DecodePrefix(List<string> prefixes, string code)
+        {
+            //sprawdz czy lista z prefiksami zostala utworzona
+            if (prefixes == null)
+            {
+                return "Prefixes are unavailable";
+            }
+            //iteruj po wierszach listy
+            foreach (var prefix in prefixes)
+            {
+                //rozdziel dane wg separatora
+                var vals = prefix.Split(';');
+                //sprawdz zakres prefiksu
+                if (Int32.Parse(code) >= Int32.Parse(vals[1]) && Int32.Parse(code) <= Int32.Parse(vals[2]))
+                {
+                    //zwroc nazwe kraju wg prefiksu
+                    return vals[0];
+                }
+            }
+            //zwroc jesli prefiks nie istnieje
+            return "Prefix unknown";
         }
 
         #endregion
