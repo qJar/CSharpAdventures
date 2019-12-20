@@ -63,6 +63,8 @@ namespace ChecksumForEanCodeAft
             int sumOfOddNumber = 0;
             //suma cyfr z pozycji parzystystych
             int sumOfEvenNumber = 0;
+            //wyliczona wartosc dla sumy kontrolnej
+            int checkSumForEanCode = 0;
 
             for (int i = 0; i < inputCode.Length - 1; i++)
             {
@@ -82,9 +84,11 @@ namespace ChecksumForEanCodeAft
             switch (inputCodeLength)
             {
                 case EanCodeType.EAN8:
-                    return ((10 - (sumOfOddNumber * 3 + sumOfEvenNumber) % 10)) == 10 ? 0 : 10 - ((sumOfOddNumber * 3 + sumOfEvenNumber) % 10);
+                    checkSumForEanCode = ((10 - (sumOfOddNumber * 3 + sumOfEvenNumber) % 10));
+                    return checkSumForEanCode == 10 ? 0 : checkSumForEanCode;
                 case EanCodeType.EAN13:
-                    return ((10 - (sumOfOddNumber + sumOfEvenNumber * 3) % 10)) == 10 ? 0 : 10 - ((sumOfOddNumber + sumOfEvenNumber * 3) % 10);
+                    checkSumForEanCode = ((10 - (sumOfOddNumber + sumOfEvenNumber * 3) % 10));
+                    return checkSumForEanCode == 10 ? 0 : checkSumForEanCode;
                 default: throw new Exception("There is no such of code type!");
             }
         }
@@ -147,6 +151,12 @@ namespace ChecksumForEanCodeAft
             }
         }
 
+        /// <summary>
+        /// Okresla nazwe kraju na podstawie prefiksu
+        /// </summary>
+        /// <param name="prefixes"></param>
+        /// <param name="code"></param>
+        /// <returns></returns>
         public static string DecodePrefix(List<string> prefixes, string code)
         {
             //sprawdz czy lista z prefiksami zostala utworzona

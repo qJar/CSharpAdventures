@@ -11,7 +11,7 @@ namespace ChecksumForEanCodeAft
 
         static void Main(string[] args)
         {
-            var codeType = EanCodeType.EAN8;
+            var codeType = EanCodeType.EAN13;
             string inputChoice = string.Empty;
             List<string> codes = new List<string>();
             List<string> prefixes = TextFileProcessor.LoadPrefixes("prefixean.csv");
