@@ -130,6 +130,38 @@ namespace ChecksumForEanCodeAft
             return outputCodeList;
         }
 
+        public static List<CodeModel> GenerateListOfRandomCodes(int howManyCodes, EanCodeType codeType)
+        {
+            //zwracana lista
+            List<CodeModel> outputCodeModelList = new List<CodeModel>();
+            //inicjalizacja generatora liczb losowych
+            Random rnd = new Random();
+
+            //generuje zadana ilosc kodow
+            for (int j = 0; j < howManyCodes; j++)
+            {
+                StringBuilder sb = new StringBuilder();
+
+                //generuje kod o zadanej liczbie znakow
+                for (int i = 0; i < (int)codeType; i++)
+                {
+                    sb.Append(rnd.Next(0, 9));
+
+                }
+                
+                //toworzy instancje modelu kodu
+                CodeModel codeModel = new CodeModel
+                {
+                    //wypelnia wyszystkie wlasciwosci obiektu
+                    Code = sb.ToString(), IsLengthValid = false, IsCharValid = false
+                };
+                //dodaje obiekt do listy
+                outputCodeModelList.Add(codeModel);
+            }
+            //zwraca liste kodow
+            return outputCodeModelList;
+        }
+
         /// <summary>
         /// Naprawia kod numeryczny modyfikujac niepoprawna sume kontrolna
         /// </summary>
