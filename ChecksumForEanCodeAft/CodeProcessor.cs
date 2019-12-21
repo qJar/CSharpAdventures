@@ -132,7 +132,7 @@ namespace ChecksumForEanCodeAft
 
         public static List<CodeModel> GenerateListOfRandomCodes(int howManyCodes, EanCodeType codeType)
         {
-            //zwracana lista
+            //tworzy instancje zwracanej listy
             List<CodeModel> outputCodeModelList = new List<CodeModel>();
             //inicjalizacja generatora liczb losowych
             Random rnd = new Random();
@@ -141,15 +141,13 @@ namespace ChecksumForEanCodeAft
             for (int j = 0; j < howManyCodes; j++)
             {
                 StringBuilder sb = new StringBuilder();
-
                 //generuje kod o zadanej liczbie znakow
                 for (int i = 0; i < (int)codeType; i++)
                 {
                     sb.Append(rnd.Next(0, 9));
 
                 }
-                
-                //toworzy instancje modelu kodu
+                //tworzy instancje modelu kodu
                 CodeModel codeModel = new CodeModel
                 {
                     //wypelnia wyszystkie wlasciwosci obiektu
@@ -178,6 +176,22 @@ namespace ChecksumForEanCodeAft
                         StringBuilder sb = new StringBuilder(codes[i]);
                         sb[((int)codeType) - 1] = CalculateChecksum(codes[i], codeType).ToString()[0];
                         codes[i] = sb.ToString();
+                    }
+                }
+            }
+        }
+
+        public static void FixChecksum(List<CodeModel> codeModelList, EanCodeType codeType)
+        {
+            if (codeModelList.Any())
+            {
+                for (int i = 0; i < codeModelList.Count; i++)
+                {
+                    if (IsCodeValid(codeModelList[i].Code, codeType))
+                    {
+                        StringBuilder sb = new StringBuilder(codeModelList[i].Code);
+                        sb[((int)codeType) - 1] = CalculateChecksum(codeModelList[i].Code, codeType).ToString()[0];
+                        codeModelList[i].Code = sb.ToString();
                     }
                 }
             }
