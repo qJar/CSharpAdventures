@@ -17,11 +17,10 @@ namespace ChecksumForEanCodeAft
         {
             Console.WriteLine($"Number of {eanCodeType} codes: {howManyCodes}");
             Console.WriteLine("Press '1' Input code");
-            Console.WriteLine("Press '2' Generate random codes");
-            Console.WriteLine("Press '3' Generate random codes with proper checksum");
-            Console.WriteLine("Press '4' Load code list from file");
-            Console.WriteLine("Press '5' Fix checksums");
-            Console.WriteLine("Press '6' Print results");
+            Console.WriteLine("Press '2' Generate list of random codes");
+            Console.WriteLine("Press '3' Load code list from file");
+            Console.WriteLine("Press '4' Fix checksums");
+            Console.WriteLine("Press '5' Print results");
             Console.WriteLine("Press 'q' to Exit");
             Console.Write("Choose option: ");
             return Console.ReadLine();
@@ -38,6 +37,16 @@ namespace ChecksumForEanCodeAft
             Console.WriteLine($"Code counter: {howManyCodes}");
             Console.Write("Please input numeric code: ");
             return Console.ReadLine();
+        }
+
+        /// <summary>
+        /// Wyswietla komunikat w zaleznosci od stanu obiektu
+        /// </summary>
+        /// <param name="inputState"></param>
+        /// <returns></returns>
+        public static string LabelForValidation(bool inputState)
+        {
+            return inputState ? "Good" : "Bad";
         }
     }
 }

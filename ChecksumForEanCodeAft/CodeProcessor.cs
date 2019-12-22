@@ -42,14 +42,19 @@ namespace ChecksumForEanCodeAft
         #region Public Methods
 
         /// <summary>
-        /// Weryfikuj kod pod wzgledem jego dlugosci i dozwolonych w nim znakow
+        /// Weryfikuj kod pod wzgledem jego dlugosci i dozwolonych w nim znakow i okresl poprawnosc kodu
         /// </summary>
-        /// <param name="inputCode"></param>
+        /// <param name="inputCodeModel"></param>
         /// <param name="inputCodeType"></param>
         /// <returns></returns>
-        public static bool IsCodeValid(string inputCode, EanCodeType inputCodeType)
+        public static bool IsCodeValid(CodeModel inputCodeModel, EanCodeType inputCodeType)
         {
-            return IsCharValid(inputCode) && IsLengthValid(inputCode, (int)inputCodeType);
+            //check if code length is valid and set property
+            inputCodeModel.IsLengthValid = IsLengthValid(inputCodeModel.Code, (int)inputCodeType);
+            //check if code chars are valid and set property
+            inputCodeModel.IsCharValid = IsCharValid(inputCodeModel.Code);
+            //return main state of validation
+            return inputCodeModel.IsCharValid && inputCodeModel.IsLengthValid;
         }
 
         /// <summary>
@@ -98,38 +103,7 @@ namespace ChecksumForEanCodeAft
         /// </summary>
         /// <param name="howManyCodes"></param>
         /// <param name="codeType"></param>
-        /// <param name="withProperChecksum"></param>
         /// <returns></returns>
-        public static List<string> GenerateListOfRandomCodes(int howManyCodes, EanCodeType codeType, bool withProperChecksum)
-        {
-            //zwracana lista
-            List<string> outputCodeList = new List<string>();
-            //inicjalizacja generatora liczb losowych
-            Random rnd = new Random();
-
-            //generuje zadana ilosc kodow
-            for (int j = 0; j < howManyCodes; j++)
-            {
-                StringBuilder sb = new StringBuilder();
-
-                //generuje kod o zadanej liczbie znakow
-                for (int i = 0; i < (int)codeType; i++)
-                {
-                    sb.Append(rnd.Next(0, 9));
-
-                }
-                //wylicza poprawna sume kontrolna
-                if (withProperChecksum)
-                {
-                    sb[((int)codeType)-1] = CalculateChecksum(sb.ToString(), codeType).ToString()[0];
-                }
-                //dodaje utworzony kod do listy
-                outputCodeList.Add(sb.ToString());
-            }
-            //zwraca liste kodow
-            return outputCodeList;
-        }
-
         public static List<CodeModel> GenerateListOfRandomCodes(int howManyCodes, EanCodeType codeType)
         {
             //tworzy instancje zwracanej listy
@@ -151,7 +125,7 @@ namespace ChecksumForEanCodeAft
                 CodeModel codeModel = new CodeModel
                 {
                     //wypelnia wyszystkie wlasciwosci obiektu
-                    Code = sb.ToString(), IsLengthValid = false, IsCharValid = false
+                    Code = sb.ToString(), IsLengthValid = true, IsCharValid = true
                 };
                 //dodaje obiekt do listy
                 outputCodeModelList.Add(codeModel);
@@ -165,33 +139,19 @@ namespace ChecksumForEanCodeAft
         /// </summary>
         /// <param name="codes"></param>
         /// <param name="codeType"></param>
-        public static void FixChecksum(List<string> codes, EanCodeType codeType)
-        {
-            if (codes.Any())
-            {
-                for (int i = 0; i < codes.Count; i++)
-                {
-                    if (IsCodeValid(codes[i], codeType))
-                    {
-                        StringBuilder sb = new StringBuilder(codes[i]);
-                        sb[((int)codeType) - 1] = CalculateChecksum(codes[i], codeType).ToString()[0];
-                        codes[i] = sb.ToString();
-                    }
-                }
-            }
-        }
-
         public static void FixChecksum(List<CodeModel> codeModelList, EanCodeType codeType)
         {
             if (codeModelList.Any())
             {
                 for (int i = 0; i < codeModelList.Count; i++)
                 {
-                    if (IsCodeValid(codeModelList[i].Code, codeType))
+                    if (IsCodeValid(codeModelList[i], codeType))
                     {
                         StringBuilder sb = new StringBuilder(codeModelList[i].Code);
                         sb[((int)codeType) - 1] = CalculateChecksum(codeModelList[i].Code, codeType).ToString()[0];
                         codeModelList[i].Code = sb.ToString();
+                        codeModelList[i].IsLengthValid = true;
+                        codeModelList[i].IsCharValid = true;
                     }
                 }
             }
