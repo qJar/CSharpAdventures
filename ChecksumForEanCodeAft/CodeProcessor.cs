@@ -143,15 +143,15 @@ namespace ChecksumForEanCodeAft
         {
             if (codeModelList.Any())
             {
-                for (int i = 0; i < codeModelList.Count; i++)
+                foreach (var eanCode in codeModelList)
                 {
-                    if (IsCodeValid(codeModelList[i], codeType))
+                    if (IsCodeValid(eanCode, codeType))
                     {
-                        StringBuilder sb = new StringBuilder(codeModelList[i].Code);
-                        sb[((int)codeType) - 1] = CalculateChecksum(codeModelList[i].Code, codeType).ToString()[0];
-                        codeModelList[i].Code = sb.ToString();
-                        codeModelList[i].IsLengthValid = true;
-                        codeModelList[i].IsCharValid = true;
+                        StringBuilder sb = new StringBuilder(eanCode.Code);
+                        sb[((int)codeType) - 1] = CalculateChecksum(eanCode.Code, codeType).ToString()[0];
+                        eanCode.Code = sb.ToString();
+                        eanCode.IsLengthValid = true;
+                        eanCode.IsCharValid = true;
                     }
                 }
             }
