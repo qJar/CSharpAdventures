@@ -13,7 +13,9 @@ namespace ChecksumForEanCodeAft
         {
             var codeType = EanCodeType.EAN13;
             string inputChoice = string.Empty;
+            //tworzy liste kodow
             List<CodeModel> codeModelList = new List<CodeModel>();
+            //wypelnia liste kodami prefixow
             List<string> prefixes = TextFileProcessor.LoadPrefixes("prefixean.csv");
 
             while ((inputChoice = UIPrinter.LoadMenu(codeModelList.Count, codeType)) != "q")
