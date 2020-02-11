@@ -176,10 +176,10 @@ namespace ChecksumForEanCodeAft
                 //rozdziel dane wg separatora
                 var vals = prefix.Split(';');
                 //sprawdz zakres prefiksu
-                if (Int32.Parse(code) >= Int32.Parse(vals[1]) && Int32.Parse(code) <= Int32.Parse(vals[2]))
+                if (Int32.Parse(code) >= Int32.Parse(vals[0]) && Int32.Parse(code) <= Int32.Parse(vals[1]))
                 {
                     //zwroc nazwe kraju wg prefiksu
-                    return vals[0];
+                    return vals[2];
                 }
             }
             //zwroc jesli prefiks nie istnieje
