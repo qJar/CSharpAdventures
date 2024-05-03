@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2048
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChecksumForEanCode", "ChecksumForEanCode\ChecksumForEanCode.csproj", "{4A59CBD3-726A-4419-BA81-5E6028ADDACA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChecksumForEanCodeAft", "ChecksumForEanCodeAft\ChecksumForEanCodeAft.csproj", "{821D37D8-1508-4DFA-B316-1066D384E807}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EanCodeChecker", "EanCodeChecker\EanCodeChecker.csproj", "{4C3A460A-1C81-4CE0-AF9F-58CB94D35DA5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{821D37D8-1508-4DFA-B316-1066D384E807}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{821D37D8-1508-4DFA-B316-1066D384E807}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{821D37D8-1508-4DFA-B316-1066D384E807}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C3A460A-1C81-4CE0-AF9F-58CB94D35DA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C3A460A-1C81-4CE0-AF9F-58CB94D35DA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C3A460A-1C81-4CE0-AF9F-58CB94D35DA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C3A460A-1C81-4CE0-AF9F-58CB94D35DA5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
