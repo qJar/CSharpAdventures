@@ -1,5 +1,11 @@
 # CSharpAdventures opis 
 
+**[04-05-2024]**
+
+## Project EanCodeChecker
+
+Nowa projekt, być może finalna wersja.
+
 **[04-02-2019]** 
 
 W ramach rozwoju mini projektu **ChecksumForEanCodeAft** odkrylem blad w koncowym wyliczeniu sumy kontrolnej w projekcie pierwotnym tj. **ChecksumForEanCode** . W sytuacjach kiedy reszta z dzielenia (x % 10) byla rowna 0, suma kontrolna wyliczana byla jako 10. BLAD! Naprawiono.
