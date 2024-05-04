@@ -13,57 +13,48 @@ namespace EanCodeChecker
             var codeType = EanCodeType.EAN13;
             string inputChoice = string.Empty;
             //tworzy liste kodow
-            List<CodeModel> codeModelList = new List<CodeModel>();
+            List<EanCodeModel> codeModelList = new List<EanCodeModel>();
             //wypelnia liste kodami prefixow
-            //List<string> prefixes = TextFileProcessor.LoadPrefixes("prefixean.csv");
+            List<string> prefixes = PrefixLoader.LoadPrefixes("prefixean.csv");
 
-            while ((inputChoice = MenuDisplay.LoadMenu(codeModelList.Count, codeType)) != "q")
+            while ((inputChoice = MenuDisplay.LoadMenu(codeModelList.Count)) != "q")
             {
                 switch (inputChoice)
                 {
                     case "1":
-
-                        codeModelList.Add(new CodeModel
-                        {
-                            Code = MenuDisplay.LoadSubMenuForInputCode(codeModelList.Count), CodeType = (int)codeType
-                        });
+                        codeModelList.Add(new EanCodeModel { Code = EanCodeLoader.InputCode(codeModelList.Count)});
                         Console.Clear();
                         break;
                     case "2":
-                        //CodeProcessor.GenerateListOfRandomCodes(10, codeType).ForEach(x => { codeModelList.Add(x); });
+                        EanCodeLoader.GenerateListOfRandomCodes(10, codeType).ForEach(x => { codeModelList.Add(x); });
                         Console.Clear();
                         break;
                     case "3":
-                        //TextFileProcessor.LoadCodesFromFile("codes.csv").ForEach(x => {
-                        //    codeModelList.Add(new CodeModel { Code = x, IsLengthValid = false, IsCharValid = false });
-                        //});
+                        EanCodeLoader.LoadCodesFromFile("codes.csv").ForEach(x => { codeModelList.Add(new EanCodeModel { Code = x }); });
                         Console.Clear();
                         break;
                     case "4":
-                        //CodeProcessor.FixChecksum(codeModelList, codeType);
+                        EanCodeValidator.FixChecksum(codeModelList);
                         Console.Clear();
                         break;
                     case "5":
                         if (codeModelList.Count > 0)
                         {
                             Console.WriteLine("\nResults:");
-                            //codeModelList.ForEach(x =>
-                            //{
-                            //    if (CodeProcessor.IsCodeValid(x, codeType))
-                            //    {
-                            //        Console.WriteLine($"Code: {x.Code} | " +
-                            //            $"Length: {UIPrinter.LabelForValidation(x.IsLengthValid)} | " +
-                            //            $"Structure: {UIPrinter.LabelForValidation(x.IsCharValid)} | " +
-                            //            $"Checksum: {CodeProcessor.CalculateChecksum(x.Code, codeType)} | " +
-                            //            $" {CodeProcessor.DecodePrefix(prefixes, x.Code.Substring(0, 3))}");
-                            //    }
-                            //    else
-                            //    {
-                            //        Console.WriteLine($"Code: {x.Code} | " +
-                            //            $"Length: {UIPrinter.LabelForValidation(x.IsLengthValid)} | " +
-                            //            $"Structure: {UIPrinter.LabelForValidation(x.IsCharValid)} | ");
-                            //    }
-                            //});
+                            codeModelList.ForEach(x =>
+                            {
+                                if (EanCodeValidator.IsCodeValid(x))
+                                {
+                                    Console.WriteLine($"Code: {x.Code} | Status: Good | " + 
+                                        $"Checksum: {EanCodeValidator.CalculateChecksum(x.Code)} | " + 
+                                        $"CheckS: {EanCodeValidator.IsChecksumValid(x.Code)} | " + 
+                                        $" {PrefixDecoder.DecodePrefix(prefixes, x.Code.Substring(0, 3))}");
+                                }
+                                else
+                                {
+                                    Console.WriteLine($"Code: {x.Code} | Status: Bad | ");
+                                }
+                            });
                             Console.WriteLine("\n---Press any key---");
                             Console.ReadKey();
                         }

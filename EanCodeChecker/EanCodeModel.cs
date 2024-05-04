@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace EanCodeChecker
 {
-    public class CodeModel
+    public class EanCodeModel
     {
         public string Code { get; set; }
-        public int CodeType;
     }
 }

@@ -43,9 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CodeModel.cs" />
-    <Compile Include="CodeValidator.cs" />
+    <Compile Include="EanCodeLoader.cs" />
+    <Compile Include="EanCodeModel.cs" />
+    <Compile Include="EanCodeValidator.cs" />
     <Compile Include="MenuDisplay.cs" />
+    <Compile Include="PrefixDecoder.cs" />
+    <Compile Include="PrefixLoader.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
