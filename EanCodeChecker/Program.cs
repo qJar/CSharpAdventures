@@ -39,10 +39,14 @@ namespace EanCodeChecker
                         Console.Clear();
                         break;
                     case "5":
-                        EanCodeValidator.FixChecksum(eanCodeModelList);
+                        EanCodeLoader.LoadCodesFromFile("codeSave.csv").ForEach(x => { eanCodeModelList.Add(new EanCodeModel { Code = x }); });
                         Console.Clear();
                         break;
                     case "6":
+                        EanCodeValidator.FixChecksum(eanCodeModelList);
+                        Console.Clear();
+                        break;
+                    case "7":
                         if (eanCodeModelList.Count > 0)
                         {
                             Console.WriteLine("\nResults:");
@@ -65,7 +69,7 @@ namespace EanCodeChecker
                         }
                         Console.Clear();
                         break;
-                    case "7":
+                    case "8":
                         if (eanCodeModelList.Count > 0)
                         {
                             EanCodeWriter.SaveCodesToFile("codeSave.csv", eanCodeModelList);
