@@ -10,38 +10,43 @@ namespace EanCodeChecker
     {
         static void Main(string[] args)
         {
-            var codeType = EanCodeType.EAN13;
+            //var codeTypeEan13 = EanCodeType.EAN13;
+            //var codeTypeEan8 = EanCodeType.EAN8;
             string inputChoice = string.Empty;
             //tworzy liste kodow
-            List<EanCodeModel> codeModelList = new List<EanCodeModel>();
+            List<EanCodeModel> eanCodeModelList = new List<EanCodeModel>();
             //wypelnia liste kodami prefixow
             List<string> prefixes = PrefixLoader.LoadPrefixes("prefixean.csv");
 
-            while ((inputChoice = MenuDisplay.LoadMenu(codeModelList.Count)) != "q")
+            while ((inputChoice = MenuDisplay.LoadMenu(eanCodeModelList.Count)) != "q")
             {
                 switch (inputChoice)
                 {
                     case "1":
-                        codeModelList.Add(new EanCodeModel { Code = EanCodeLoader.InputCode(codeModelList.Count)});
+                        eanCodeModelList.Add(new EanCodeModel { Code = EanCodeLoader.InputCode(eanCodeModelList.Count)});
                         Console.Clear();
                         break;
                     case "2":
-                        EanCodeLoader.GenerateListOfRandomCodes(10, codeType).ForEach(x => { codeModelList.Add(x); });
+                        EanCodeLoader.GenerateListOfRandomCodes(10, EanCodeType.EAN13).ForEach(x => { eanCodeModelList.Add(x); });
                         Console.Clear();
                         break;
                     case "3":
-                        EanCodeLoader.LoadCodesFromFile("codes.csv").ForEach(x => { codeModelList.Add(new EanCodeModel { Code = x }); });
+                        EanCodeLoader.GenerateListOfRandomCodes(10, EanCodeType.EAN8).ForEach(x => { eanCodeModelList.Add(x); });
                         Console.Clear();
                         break;
                     case "4":
-                        EanCodeValidator.FixChecksum(codeModelList);
+                        EanCodeLoader.LoadCodesFromFile("codes.csv").ForEach(x => { eanCodeModelList.Add(new EanCodeModel { Code = x }); });
                         Console.Clear();
                         break;
                     case "5":
-                        if (codeModelList.Count > 0)
+                        EanCodeValidator.FixChecksum(eanCodeModelList);
+                        Console.Clear();
+                        break;
+                    case "6":
+                        if (eanCodeModelList.Count > 0)
                         {
                             Console.WriteLine("\nResults:");
-                            codeModelList.ForEach(x =>
+                            eanCodeModelList.ForEach(x =>
                             {
                                 if (EanCodeValidator.IsCodeValid(x))
                                 {
@@ -57,6 +62,13 @@ namespace EanCodeChecker
                             });
                             Console.WriteLine("\n---Press any key---");
                             Console.ReadKey();
+                        }
+                        Console.Clear();
+                        break;
+                    case "7":
+                        if (eanCodeModelList.Count > 0)
+                        {
+                            EanCodeWriter.SaveCodesToFile("codeSave.csv", eanCodeModelList);
                         }
                         Console.Clear();
                         break;

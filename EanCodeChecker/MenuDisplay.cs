@@ -12,10 +12,12 @@ namespace EanCodeChecker
         {
             Console.WriteLine($"Number of EANCODES: {howManyCodes}");
             Console.WriteLine("Press '1' Input code");
-            Console.WriteLine("Press '2' Generate list of random codes");
-            Console.WriteLine("Press '3' Load code list from file");
-            Console.WriteLine("Press '4' Fix checksums");
-            Console.WriteLine("Press '5' Print results");
+            Console.WriteLine("Press '2' Generate list of random codes (EAN13)");
+            Console.WriteLine("Press '3' Generate list of random codes (EAN8)");
+            Console.WriteLine("Press '4' Load code list from file");
+            Console.WriteLine("Press '5' Fix checksums");
+            Console.WriteLine("Press '6' Print results");
+            Console.WriteLine("Press '7' Save to file");
             Console.WriteLine("Press 'q' to Exit");
             Console.Write("Choose option: ");
             return Console.ReadLine();
