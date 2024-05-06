@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+//using static System.Net.Mime.MediaTypeNames;
 
 namespace EanCodeChecker
 {
@@ -10,20 +12,21 @@ namespace EanCodeChecker
     {
         static void Main(string[] args)
         {
-            //var codeTypeEan13 = EanCodeType.EAN13;
-            //var codeTypeEan8 = EanCodeType.EAN8;
             string inputChoice = string.Empty;
             //tworzy liste kodow
             List<EanCodeModel> eanCodeModelList = new List<EanCodeModel>();
             //wypelnia liste kodami prefixow
             List<string> prefixes = PrefixLoader.LoadPrefixes("prefixean.csv");
 
+            //string path = Directory.GetCurrentDirectory();
+            string[] fileNameArray = Directory.GetFiles(@".\", "*.csv");
+
             while ((inputChoice = MenuDisplay.LoadMenu(eanCodeModelList.Count)) != "q")
             {
                 switch (inputChoice)
                 {
                     case "1":
-                        eanCodeModelList.Add(new EanCodeModel { Code = EanCodeLoader.InputCode(eanCodeModelList.Count)});
+                        eanCodeModelList.Add(EanCodeLoader.CreateEanCodeModel(MenuDisplay.LoadMenuInputCode(eanCodeModelList.Count)));
                         Console.Clear();
                         break;
                     case "2":
@@ -35,11 +38,11 @@ namespace EanCodeChecker
                         Console.Clear();
                         break;
                     case "4":
-                        EanCodeLoader.LoadCodesFromFile("codes.csv").ForEach(x => { eanCodeModelList.Add(new EanCodeModel { Code = x }); });
+                        EanCodeLoader.LoadCodesFromFile(@".\codes.csv").ForEach(x => { eanCodeModelList.Add(new EanCodeModel { Code = x }); });
                         Console.Clear();
                         break;
                     case "5":
-                        EanCodeLoader.LoadCodesFromFile("codeSave.csv").ForEach(x => { eanCodeModelList.Add(new EanCodeModel { Code = x }); });
+                        EanCodeLoader.LoadCodesFromFile(@".\codeSave.csv").ForEach(x => { eanCodeModelList.Add(new EanCodeModel { Code = x }); });
                         Console.Clear();
                         break;
                     case "6":
@@ -72,7 +75,14 @@ namespace EanCodeChecker
                     case "8":
                         if (eanCodeModelList.Count > 0)
                         {
-                            EanCodeWriter.SaveCodesToFile("codeSave.csv", eanCodeModelList);
+                            EanCodeWriter.SaveCodesToFile(@".\codeSave.csv", eanCodeModelList);
+                        }
+                        Console.Clear();
+                        break;
+                    case "9":
+                        if (fileNameArray.Any())
+                        {
+                            MenuDisplay.LoadMenuListingFiles(fileNameArray);
                         }
                         Console.Clear();
                         break;

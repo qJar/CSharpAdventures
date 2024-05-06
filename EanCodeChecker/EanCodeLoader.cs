@@ -47,16 +47,13 @@ namespace EanCodeChecker
         }
 
         /// <summary>
-        /// Reczne wstawianie kodow
+        /// Tworzy model kodu na podstawie wprowadzanych znakow
         /// </summary>
-        /// <param name="howManyCodes"></param>
+        /// <param name="eanCode"></param>
         /// <returns></returns>
-        public static string InputCode(int howManyCodes)
+        public static EanCodeModel CreateEanCodeModel(string eanCode)
         {
-            Console.Clear();
-            Console.WriteLine($"Code counter: {howManyCodes}");
-            Console.Write("Please input numeric code: ");
-            return Console.ReadLine();
+            return new EanCodeModel { Code = eanCode};
         }
 
         /// <summary>

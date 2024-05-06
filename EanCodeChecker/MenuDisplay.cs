@@ -19,8 +19,32 @@ namespace EanCodeChecker
             Console.WriteLine("Press '6' Fix checksums");
             Console.WriteLine("Press '7' Print results");
             Console.WriteLine("Press '8' Save to file");
+            Console.WriteLine("Press '9' Listing CSV files");
             Console.WriteLine("Press 'q' to Exit");
             Console.Write("Choose option: ");
+            return Console.ReadLine();
+        }
+
+        public static string LoadMenuInputCode(int howManyCodes)
+        {
+            Console.Clear();
+            Console.WriteLine($"Code counter: {howManyCodes}");
+            Console.Write("Please input numeric code: ");
+            return Console.ReadLine();
+        }
+
+        public static string LoadMenuListingFiles(string[] fileNameArray)
+        {
+            Console.Clear();
+            int i = 0;
+            char[] charsToTrim = { '.', '\\' };
+            foreach (string fileName in fileNameArray)
+            {
+                i++;
+                Console.WriteLine($"{i} - " + fileName.Trim(charsToTrim));
+            }
+            Console.WriteLine("0 - Exit");
+            Console.Write("\nChoose option: ");
             return Console.ReadLine();
         }
     }
