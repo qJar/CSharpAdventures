@@ -17,10 +17,9 @@ namespace EanCodeChecker
             List<EanCodeModel> eanCodeModelList = new List<EanCodeModel>();
             //wypelnia liste kodami prefixow
             List<string> prefixes = PrefixLoader.LoadPrefixes("prefixean.csv");
-
             //string path = Directory.GetCurrentDirectory();
-            string[] fileNameArray = Directory.GetFiles(@".\", "*.csv");
-
+            string[] fileNameArray = Directory.GetFiles(@".\", "codes*.csv");
+            
             while ((inputChoice = MenuDisplay.LoadMenu(eanCodeModelList.Count)) != "q")
             {
                 switch (inputChoice)
@@ -82,7 +81,7 @@ namespace EanCodeChecker
                     case "9":
                         if (fileNameArray.Any())
                         {
-                            MenuDisplay.LoadMenuListingFiles(fileNameArray);
+                            MenuDisplay.LoadMenuListingFiles(Helper.GetValidFileNameArray(fileNameArray));
                         }
                         Console.Clear();
                         break;

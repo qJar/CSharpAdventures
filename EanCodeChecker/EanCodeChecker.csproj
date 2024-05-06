@@ -47,6 +47,7 @@
     <Compile Include="EanCodeModel.cs" />
     <Compile Include="EanCodeValidator.cs" />
     <Compile Include="EanCodeWriter.cs" />
+    <Compile Include="Helper.cs" />
     <Compile Include="MenuDisplay.cs" />
     <Compile Include="PrefixDecoder.cs" />
     <Compile Include="PrefixLoader.cs" />
