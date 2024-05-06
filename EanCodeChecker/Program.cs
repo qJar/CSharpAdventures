@@ -20,12 +20,12 @@ namespace EanCodeChecker
             //string path = Directory.GetCurrentDirectory();
             string[] fileNameArray = Directory.GetFiles(@".\", "codes*.csv");
             
-            while ((inputChoice = MenuDisplay.LoadMenu(eanCodeModelList.Count)) != "q")
+            while ((inputChoice = UIManager.LoadMenu(eanCodeModelList.Count)) != "q")
             {
                 switch (inputChoice)
                 {
                     case "1":
-                        eanCodeModelList.Add(EanCodeLoader.CreateEanCodeModel(MenuDisplay.LoadMenuInputCode(eanCodeModelList.Count)));
+                        eanCodeModelList.Add(EanCodeLoader.CreateEanCodeModel(UIManager.LoadMenuInputCode(eanCodeModelList.Count)));
                         Console.Clear();
                         break;
                     case "2":
@@ -56,10 +56,8 @@ namespace EanCodeChecker
                             {
                                 if (EanCodeValidator.IsCodeValid(x))
                                 {
-                                    Console.WriteLine($"Code: {x.Code} | Status: Good | " + 
-                                        $"Checksum: {EanCodeValidator.CalculateChecksum(x.Code)} | " + 
-                                        $"CheckS: {EanCodeValidator.IsChecksumValid(x.Code)} | " + 
-                                        $" {PrefixDecoder.DecodePrefix(prefixes, x.Code.Substring(0, 3))}");
+                                    UIManager.PrintResult(x.Code, EanCodeValidator.CalculateChecksum(x.Code),
+                                        EanCodeValidator.IsChecksumValid(x.Code), PrefixDecoder.DecodePrefix(prefixes, x.Code.Substring(0, 3)));
                                 }
                                 else
                                 {
@@ -81,7 +79,14 @@ namespace EanCodeChecker
                     case "9":
                         if (fileNameArray.Any())
                         {
-                            MenuDisplay.LoadMenuListingFiles(Helper.GetValidFileNameArray(fileNameArray));
+                            UIManager.LoadMenuListingFiles(Helper.GetValidFileNameArray(fileNameArray), eanCodeModelList.Count);
+                        }
+                        else
+                        {
+                            Console.Clear();
+                            Console.WriteLine("No files...");
+                            Console.WriteLine("\n---Press any key---");
+                            Console.ReadKey();
                         }
                         Console.Clear();
                         break;

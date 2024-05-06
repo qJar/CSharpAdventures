@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EanCodeChecker
 {
-    public class MenuDisplay
+    public class UIManager
     {
         public static string LoadMenu(int howManyCodes)
         {
@@ -33,19 +33,27 @@ namespace EanCodeChecker
             return Console.ReadLine();
         }
 
-        public static string LoadMenuListingFiles(string[] fileNameArray)
+        public static string LoadMenuListingFiles(string[] fileNameArray, int howManyCodes)
         {
             Console.Clear();
+            Console.WriteLine($"List of CSV files (loaded EANCodes: {howManyCodes})");
             int i = 0;
-            char[] charsToTrim = { '.', '\\' };
             foreach (string fileName in fileNameArray)
             {
                 i++;
-                Console.WriteLine($"{i} - " + fileName.Trim(charsToTrim));
+                Console.WriteLine($"{i} - " + fileName);
             }
             Console.WriteLine("0 - Exit");
             Console.Write("\nChoose option: ");
             return Console.ReadLine();
+        }
+
+        public static void PrintResult(string eanCode, int checksum, bool isChecksumValid, string prefix)
+        {
+            Console.WriteLine($"Code: {eanCode} | Status: Good | " +
+                    $"Checksum: {checksum} | " +
+                    $"CheckS: {isChecksumValid} | " +
+                    $" {prefix}");
         }
     }
 }
