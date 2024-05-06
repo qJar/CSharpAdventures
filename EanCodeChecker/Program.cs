@@ -16,7 +16,7 @@ namespace EanCodeChecker
             //tworzy liste kodow
             List<EanCodeModel> eanCodeModelList = new List<EanCodeModel>();
             //wypelnia liste kodami prefixow
-            List<string> prefixes = PrefixLoader.LoadPrefixes("prefixean.csv");
+            List<string> prefixes = PrefixModule.LoadPrefixes("prefixean.csv");
             //string path = Directory.GetCurrentDirectory();
             string[] fileNameArray = Directory.GetFiles(@".\", "codes*.csv");
             
@@ -57,7 +57,7 @@ namespace EanCodeChecker
                                 if (EanCodeValidator.IsCodeValid(x))
                                 {
                                     UIManager.PrintResult(x.Code, EanCodeValidator.CalculateChecksum(x.Code),
-                                        EanCodeValidator.IsChecksumValid(x.Code), PrefixDecoder.DecodePrefix(prefixes, x.Code.Substring(0, 3)));
+                                        EanCodeValidator.IsChecksumValid(x.Code), PrefixModule.DecodePrefix(prefixes, x.Code.Substring(0, 3)));
                                 }
                                 else
                                 {

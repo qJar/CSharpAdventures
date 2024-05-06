@@ -49,8 +49,7 @@
     <Compile Include="EanCodeWriter.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="UIManager.cs" />
-    <Compile Include="PrefixDecoder.cs" />
-    <Compile Include="PrefixLoader.cs" />
+    <Compile Include="PrefixModule.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
