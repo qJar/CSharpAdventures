@@ -36,14 +36,14 @@ namespace EanCodeChecker
                         EanCodeLoader.GenerateListOfRandomCodes(10, EanCodeType.EAN8).ForEach(x => { eanCodeModelList.Add(x); });
                         Console.Clear();
                         break;
-                    case "4":
-                        EanCodeLoader.LoadCodesFromFile(@".\codes.csv").ForEach(x => { eanCodeModelList.Add(new EanCodeModel { Code = x }); });
-                        Console.Clear();
-                        break;
-                    case "5":
-                        EanCodeLoader.LoadCodesFromFile(@".\codeSave.csv").ForEach(x => { eanCodeModelList.Add(new EanCodeModel { Code = x }); });
-                        Console.Clear();
-                        break;
+                    //case "4":
+                    //    EanCodeLoader.LoadCodesFromFile(@".\codes.csv").ForEach(x => { eanCodeModelList.Add(new EanCodeModel { Code = x }); });
+                    //    Console.Clear();
+                    //    break;
+                    //case "5":
+                    //    EanCodeLoader.LoadCodesFromFile(@".\codeSave.csv").ForEach(x => { eanCodeModelList.Add(new EanCodeModel { Code = x }); });
+                    //    Console.Clear();
+                    //    break;
                     case "6":
                         EanCodeValidator.FixChecksum(eanCodeModelList);
                         Console.Clear();
@@ -76,10 +76,27 @@ namespace EanCodeChecker
                         }
                         Console.Clear();
                         break;
-                    case "9":
+                    case "4":
                         if (fileNameArray.Any())
                         {
-                            UIManager.LoadMenuListingFiles(Helper.GetValidFileNameArray(fileNameArray), eanCodeModelList.Count);
+                            string[] tempValidFileNameArray = Helper.GetValidFileNameArray(fileNameArray);
+
+                            string tempStr = UIManager.LoadMenuListingFiles(tempValidFileNameArray, eanCodeModelList.Count);
+
+                            if (Int32.TryParse(tempStr, out int j))
+                            {
+                                int i = j;
+
+                                if (!string.IsNullOrEmpty(tempStr))
+                                {
+                                    if (i > 0 && i <= tempValidFileNameArray.Length)
+                                    {
+                                        EanCodeLoader.LoadCodesFromFile(@".\" + tempValidFileNameArray[i - 1]).ForEach(x =>
+                                        { eanCodeModelList.Add(new EanCodeModel { Code = x }); });
+                                    }
+                                }
+                            }
+                            Console.Clear();
                         }
                         else
                         {
